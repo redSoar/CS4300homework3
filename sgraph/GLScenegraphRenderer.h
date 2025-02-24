@@ -106,7 +106,6 @@ namespace sgraph {
         stack<glm::mat4>& modelview;    
         util::ShaderLocationsVault shaderLocations;
         map<string,util::ObjectInstance *> objects;
-
    };
 }
 

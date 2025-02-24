@@ -38,8 +38,10 @@ private:
     glm::mat4 projection;
     stack<glm::mat4> modelview;
     sgraph::SGNodeVisitor *renderer;
+    sgraph::SGNodeVisitor *textRenderer;
     int frames;
     double time;
+    int count;
 };
 
 #endif

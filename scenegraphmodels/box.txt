@@ -20,3 +20,7 @@ add-child node-3-0 node-2-0
 add-child node-2-0 node-1-0
 assign-root node-1-0
 
+#scenegraph:
+# root
+#   - scale
+#       - one-box
