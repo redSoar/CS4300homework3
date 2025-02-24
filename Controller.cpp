@@ -25,7 +25,7 @@ void Controller::initScenegraph() {
     
     //read in the file of commands
     //ifstream inFile("scenegraphmodels/two-humans-commands.txt");
-    ifstream inFile("scenegraphmodels/face-hierarchy-commands.txt");
+    ifstream inFile("scenegraphmodels/turret.txt");
     //ifstream inFile("tryout.txt");
     sgraph::ScenegraphImporter importer;
     

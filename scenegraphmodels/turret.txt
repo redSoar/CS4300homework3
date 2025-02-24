@@ -1,0 +1,31 @@
+#instance
+instance cylinder models/cylinder.obj
+
+#material
+material mat-turret
+emission 0 0 0
+ambient 0.3 0 0
+diffuse 1 0 0
+specular 1 0 0
+shininess 0
+end-material
+
+#root
+group root root
+
+#tower
+scale s-tower s-tower 25 100 25
+leaf tower tower instanceof cylinder
+assign-material tower mat-turret
+
+add-child tower s-tower
+add-child s-tower root
+
+#roof
+translate t-roof t-roof 0 100 0
+add-child t-roof root
+
+import roof scenegraphmodels/turret-roof.txt
+add-child roof t-roof
+
+assign-root root

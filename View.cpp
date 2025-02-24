@@ -116,10 +116,11 @@ void View::display(sgraph::IScenegraph *scenegraph) {
     //glEnable(GL_CULL_FACE);
     //glCullFace(GL_FRONT_FACE);
 
-    
+    float rot_time = glfwGetTime() * 30.0f;
     
     modelview.push(glm::mat4(1.0));
     modelview.top() = modelview.top() * glm::lookAt(glm::vec3(200.0f,250.0f,250.0f),glm::vec3(0.0f,0.0f,0.0f),glm::vec3(0.0f,1.0f,0.0f));
+    modelview.top() = modelview.top() * glm::rotate(glm::mat4(1.0f), glm::radians(rot_time), glm::vec3(0.0f, 1.0f, 0.0f));
     //send projection matrix to GPU    
     glUniformMatrix4fv(shaderLocations.getLocation("projection"), 1, GL_FALSE, glm::value_ptr(projection));
     
