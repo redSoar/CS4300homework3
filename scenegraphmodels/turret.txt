@@ -11,21 +11,21 @@ shininess 0
 end-material
 
 #root
-group root root
+group turret root
 
 #tower
-scale s-tower s-tower 25 100 25
+scale s-tower s-tower 24 100 24
 leaf tower tower instanceof cylinder
 assign-material tower mat-turret
 
 add-child tower s-tower
-add-child s-tower root
+add-child s-tower turret
 
 #roof
 translate t-roof t-roof 0 100 0
-add-child t-roof root
+add-child t-roof turret
 
 import roof scenegraphmodels/turret-roof.txt
 add-child roof t-roof
 
-assign-root root
+assign-root turret
