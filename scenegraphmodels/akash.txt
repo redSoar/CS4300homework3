@@ -74,14 +74,18 @@ add-child lowerbody t-lowerbody-to-human
 add-child t-lowerbody-to-human human
 
 # attach midbody to human at a height of 60
-translate t-midbody-to-human t-midbody-to-human 0 60 0
-add-child midbody t-midbody-to-human
+translate t-midbody-to-human t-midbody-to-human 0 60 10
+rotate r-midbody-to-human r-midbody-to-human 30 1 0 0
+add-child midbody r-midbody-to-human
+add-child r-midbody-to-human t-midbody-to-human
 add-child t-midbody-to-human human 
 
 # attach upperbody to human at a height of 68
-translate t-upperbody-to-human t-upperbody-to-human 0 68 0
-add-child upperbody t-upperbody-to-human
-add-child t-upperbody-to-human human 
+translate t-upperbody-to-human t-upperbody-to-human 0 67 14
+rotate r-upperbody-to-human r-upperbody-to-human 30 1 0 0
+add-child upperbody r-upperbody-to-human
+add-child r-upperbody-to-human t-upperbody-to-human
+add-child t-upperbody-to-human human
 
 #--------------------lower body starts
 
@@ -90,19 +94,25 @@ add-child t-upperbody-to-human human
 translate t-left-leg t-left-leg -5 0 0
 add-child t-left-leg lowerbody
 
+rotate r2-left-leg r2-left-leg -10 0 1 0
+add-child r2-left-leg t-left-leg
+
+rotate r1-left-leg r1-left-leg -70 1 0 0
+add-child r1-left-leg r2-left-leg
+
 #the whole left leg, made of shin, knee and thigh
 group g-leftleg g-leftleg 
-add-child g-leftleg t-left-leg
+add-child g-leftleg r1-left-leg
 
 #the shin, with its top at the origin
 group g-lshin g-lshin
 
-translate t-lshin t-lshin 0 -20 0
-add-child t-lshin g-lshin
+rotate r-lshin r-lshin -90 1 0 0
+add-child r-lshin g-lshin
 
 #left shin scaled to have height 20
 scale s-lshin s-lshin 1 20 1
-add-child s-lshin t-lshin
+add-child s-lshin r-lshin
 
 #the actual left shin
 leaf lshin lshin instanceof cylinder
@@ -153,19 +163,25 @@ add-child g-lthigh g-leftleg
 translate t-right-leg t-right-leg 5 0 0
 add-child t-right-leg lowerbody
 
+rotate r2-right-leg r2-right-leg 10 0 1 0
+add-child r2-right-leg t-right-leg
+
+rotate r1-right-leg r1-right-leg -70 1 0 0
+add-child r1-right-leg r2-right-leg
+
 #the whole right leg, made of shin, knee and thigh
 group g-rightleg g-rightleg 
-add-child g-rightleg t-right-leg
+add-child g-rightleg r1-right-leg
 
 #the shin, with its top at the origin
 group g-rshin g-rshin
 
-translate t-rshin t-rshin 0 -20 0
-add-child t-rshin g-rshin
+rotate r-rshin r-rshin -90 1 0 0
+add-child r-rshin g-rshin
 
 #shin scaled to have height 20
 scale s-rshin s-rshin 1 20 1
-add-child s-rshin t-rshin
+add-child s-rshin r-rshin
 
 #the actual right shin
 leaf rshin rshin instanceof cylinder
@@ -280,15 +296,28 @@ translate t-leftarm-to-shoulder t-leftarm-to-shoulder -8 0 0
 add-child t-leftarm-to-shoulder g-shoulder
 
 group g-leftarm g-leftarm
-add-child g-leftarm t-leftarm-to-shoulder
+
+scale s-leftarm s-leftarm 1 1.5 1
+add-child s-leftarm t-leftarm-to-shoulder
+
+rotate r2-leftarm r2-leftarm -10 0 0 1
+add-child r2-leftarm s-leftarm
+
+rotate r1-leftarm r1-leftarm -30 1 0 0
+add-child r1-leftarm r2-leftarm
+
+add-child g-leftarm r1-leftarm
 
 group g-llowerarm g-llowerarm 
 
-translate t-llowerarm t-llowerarm 0 -10 0
-add-child t-llowerarm g-llowerarm
+rotate r2-llowerarm r2-llowerarm 30 0 1 0
+add-child r2-llowerarm g-llowerarm
 
-scale s-llowerarm s-llowerarm 1 10 1
-add-child s-llowerarm t-llowerarm
+rotate r1-llowerarm r1-llowerarm 120 1 0 0
+add-child r1-llowerarm r2-llowerarm
+
+scale s-llowerarm s-llowerarm 1 15 1
+add-child s-llowerarm r1-llowerarm
 
 leaf llowerarm llowerarm instanceof cylinder
 add-child llowerarm s-llowerarm 
@@ -355,16 +384,26 @@ translate t-rightarm-to-shoulder t-rightarm-to-shoulder 8 0 0
 add-child t-rightarm-to-shoulder g-shoulder
 
 group g-rightarm g-rightarm
-add-child g-rightarm t-rightarm-to-shoulder
+
+scale s-rightarm s-rightarm 1 1.5 1
+add-child s-rightarm t-rightarm-to-shoulder
+
+rotate r2-rightarm r2-rightarm 55 0 0 1
+add-child r2-rightarm s-rightarm
+
+rotate r1-rightarm r1-rightarm -10 1 0 0
+add-child r1-rightarm r2-rightarm
+
+add-child g-rightarm r1-rightarm
 
 #right lower arm
 group g-rlowerarm g-rlowerarm 
 
-translate t-rlowerarm t-rlowerarm 0 -10 0
-add-child t-rlowerarm g-rlowerarm
+rotate r-rlowerarm r-rlowerarm 90 1 0 0
+add-child r-rlowerarm g-rlowerarm
 
-scale s-rlowerarm s-rlowerarm 1 10 1
-add-child s-rlowerarm t-rlowerarm
+scale s-rlowerarm s-rlowerarm 1 15 1
+add-child s-rlowerarm r-rlowerarm
 
 leaf rlowerarm rlowerarm instanceof cylinder
 add-child rlowerarm s-rlowerarm 
@@ -453,8 +492,11 @@ translate t-neck-to-head t-neck-to-head 0 -7 0
 add-child g-neck t-neck-to-head
 add-child t-neck-to-head g-head
 
+rotate r-head r-head -20 1 0 0
+add-child r-head g-head
+
 scale s-head s-head 3 5 3
-add-child s-head g-head
+add-child s-head r-head
 
 leaf head head instanceof sphere
 add-child head s-head

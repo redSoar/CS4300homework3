@@ -85,7 +85,7 @@ import turret-4 scenegraphmodels/turret.txt
 add-child turret-4 t-turret-4
 
 # Akash
-translate t-akash t-akash -100 120 100
+translate t-akash t-akash -100 72 115
 add-child t-akash castle
 
 scale s-akash s-akash 80 80 80
