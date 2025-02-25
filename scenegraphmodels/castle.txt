@@ -98,7 +98,7 @@ add-child akash s-akash
 translate t-jaemin t-jaemin 20 15 0
 add-child t-jaemin castle
 
-scale s-jaemin s-jaemin 80 80 80
+scale s-jaemin s-jaemin 80 70 80
 add-child s-jaemin t-jaemin
 
 import jaemin scenegraphmodels/jaemin.txt
