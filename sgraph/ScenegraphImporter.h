@@ -29,11 +29,11 @@ namespace sgraph {
                 string inputWithOutCommentsString = stripComments(input);
                 istringstream inputWithOutComments(inputWithOutCommentsString);
                 while (inputWithOutComments >> command) {
-                    cout << "Read " << command << endl;
+                    //cout << "Read " << command << endl;
                     if (command == "instance") {
                         string name,path;
                         inputWithOutComments >> name >> path;
-                        cout << "Read " << name << " " << path << endl;
+                        //cout << "Read " << name << " " << path << endl;
                         meshPaths[name] = path;
                         ifstream in(path);
                        if (in.is_open()) {
@@ -95,7 +95,7 @@ namespace sgraph {
                     string varname,name;
                     input >> varname >> name;
                     
-                    cout << "Read " << varname << " " << name << endl;
+                    //cout << "Read " << varname << " " << name << endl;
                     SGNode *group = new GroupNode(name,NULL);
                     nodes[varname] = group;
                 }
@@ -103,7 +103,7 @@ namespace sgraph {
                 virtual void parseLeaf(istream& input) {
                     string varname,name,command,instanceof;
                     input >> varname >> name;
-                    cout << "Read " << varname << " " << name << endl;
+                    //cout << "Read " << varname << " " << name << endl;
                     input >> command;
                     if (command == "instanceof") {
                         input >> instanceof;

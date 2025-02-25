@@ -9,6 +9,7 @@ class Controller: public Callbacks
 {
 public:
     Controller(Model& m,View& v);
+    Controller(Model& m,View& v, char* fp);
     ~Controller();
     void run();
 
@@ -21,6 +22,8 @@ private:
 
     View view;
     Model model;
+    char* filePath;
+    bool filePathExists;
 };
 
 #endif

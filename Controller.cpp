@@ -7,6 +7,7 @@
 #include "ObjImporter.h"
 using namespace sgraph;
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 #include "sgraph/ScenegraphExporter.h"
@@ -15,25 +16,41 @@ using namespace std;
 Controller::Controller(Model& m,View& v) {
     model = m;
     view = v;
+    filePathExists = false;
+    initScenegraph();
+}
 
+Controller::Controller(Model& m,View& v, char* fp) {
+    model = m;
+    view = v;
+    filePath = fp;
+    filePathExists = true;
     initScenegraph();
 }
 
 void Controller::initScenegraph() {
-
-     
+    if(filePathExists){
+        ifstream inFile(filePath);
+        //ifstream inFile("tryout.txt");
+        sgraph::ScenegraphImporter importer;
+        
     
-    //read in the file of commands
-    //ifstream inFile("scenegraphmodels/two-humans-commands.txt");
-    ifstream inFile("scenegraphmodels/castle.txt");
-    //ifstream inFile("tryout.txt");
-    sgraph::ScenegraphImporter importer;
+        IScenegraph *scenegraph = importer.parse(inFile);
+        //scenegraph->setMeshes(meshes);
+        model.setScenegraph(scenegraph);
+        cout <<"Scenegraph made" << endl;   
+    }
+    else {
+        ifstream inFile("scenegraphmodels/castle.txt");
+        //ifstream inFile("tryout.txt");
+        sgraph::ScenegraphImporter importer;
+        
     
-
-    IScenegraph *scenegraph = importer.parse(inFile);
-    //scenegraph->setMeshes(meshes);
-    model.setScenegraph(scenegraph);
-    cout <<"Scenegraph made" << endl;   
+        IScenegraph *scenegraph = importer.parse(inFile);
+        //scenegraph->setMeshes(meshes);
+        model.setScenegraph(scenegraph);
+        cout <<"Scenegraph made" << endl;   
+    }
 
 }
 
