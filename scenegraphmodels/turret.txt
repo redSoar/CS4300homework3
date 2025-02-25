@@ -11,7 +11,7 @@ shininess 0
 end-material
 
 #root
-group turret root
+group turret turret
 
 #tower
 scale s-tower s-tower 24 100 24

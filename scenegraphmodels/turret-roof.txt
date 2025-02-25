@@ -20,7 +20,7 @@ shininess 0
 end-material
 
 #root
-group root root
+group roof roof
 
 #base
 scale s-base s-base 50 20 50
@@ -28,7 +28,7 @@ leaf base base instanceof box
 assign-material base mat-turret-roof
 
 add-child base s-base
-add-child s-base root
+add-child s-base roof
 
 #first notch
 translate t-notch-1 t-notch-1 20 15 20
@@ -38,7 +38,7 @@ assign-material notch-1 mat-turret-notch
 
 add-child notch-1 s-notch-1
 add-child s-notch-1 t-notch-1
-add-child t-notch-1 root
+add-child t-notch-1 roof
 
 #second notch
 translate t-notch-2 t-notch-2 -20 15 -20
@@ -48,7 +48,7 @@ assign-material notch-2 mat-turret-notch
 
 add-child notch-2 s-notch-2
 add-child s-notch-2 t-notch-2
-add-child t-notch-2 root
+add-child t-notch-2 roof
 
 #third notch
 translate t-notch-3 t-notch-3 20 15 -20
@@ -58,7 +58,7 @@ assign-material notch-3 mat-turret-notch
 
 add-child notch-3 s-notch-3
 add-child s-notch-3 t-notch-3
-add-child t-notch-3 root
+add-child t-notch-3 roof
 
 #fourth notch
 translate t-notch-4 t-notch-4 -20 15 20
@@ -68,6 +68,6 @@ assign-material notch-4 mat-turret-notch
 
 add-child notch-4 s-notch-4
 add-child s-notch-4 t-notch-4
-add-child t-notch-4 root
+add-child t-notch-4 roof
 
-assign-root root
+assign-root roof

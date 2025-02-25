@@ -10,7 +10,7 @@ shininess 0
 end-material
 
 #the root
-group node-1-0 root
+group node-1-0 wall
 scale node-2-0 scale 200 150 10
 leaf node-3-0 one-box instanceof box #comment here?
 assign-material node-3-0 mat-wall

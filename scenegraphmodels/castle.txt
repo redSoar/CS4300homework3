@@ -84,4 +84,24 @@ add-child t-turret-4 castle
 import turret-4 scenegraphmodels/turret.txt
 add-child turret-4 t-turret-4
 
+# Akash
+translate t-akash t-akash -20 15 0
+add-child t-akash castle
+
+scale s-akash s-akash 80 80 80
+add-child s-akash t-akash
+
+import akash scenegraphmodels/akash.txt
+add-child akash s-akash
+
+# Jae Min
+translate t-jaemin t-jaemin 20 15 0
+add-child t-jaemin castle
+
+scale s-jaemin s-jaemin 80 80 80
+add-child s-jaemin t-jaemin
+
+import jaemin scenegraphmodels/jaemin.txt
+add-child jaemin s-jaemin
+
 assign-root castle
