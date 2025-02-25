@@ -95,7 +95,7 @@ import akash scenegraphmodels/akash.txt
 add-child akash s-akash
 
 # Jae Min
-translate t-jaemin t-jaemin 20 15 0
+translate t-jaemin t-jaemin 0 15 0
 add-child t-jaemin castle
 
 scale s-jaemin s-jaemin 80 70 80
