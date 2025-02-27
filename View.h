@@ -47,7 +47,6 @@ private:
     double time;
     int count;
     bool isRotate = false;
-    float startpos[2];
     float prevpos[2];
     float rotateAmount[2] = {0.0f, 0.0f};
 };

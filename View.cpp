@@ -182,10 +182,8 @@ void View::findMousePos(bool init)
     glfwGetCursorPos(window, &xpos, &ypos);
 
     if (init) {
-        startpos[0] = (float)xpos;
-        startpos[1] = (float)ypos;
-        prevpos[0] = startpos[0];
-        prevpos[1] = startpos[1];
+        prevpos[0] = (float)xpos;
+        prevpos[1] = (float)ypos;
     }
     else {
         float diffx = (float)xpos - prevpos[0];
