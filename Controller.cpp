@@ -66,10 +66,16 @@ void Controller::run()
     while (!view.shouldWindowClose()) {
         view.display(scenegraph);
         if(!released) {
-            view.rotate();
+            if (count == 0) {
+                view.findMousePos(true);
+                count++;
+            }
+            //view.rotate();
+            view.findMousePos(false);
         }
         else {
-            view.dontRotate();
+            count = 0;
+            // view.dontRotate();
         }
     }
     view.closeWindow();

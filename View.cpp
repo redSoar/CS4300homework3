@@ -16,7 +16,7 @@ View::View() {
 }
 
 View::~View(){
-
+    
 }
 
 void View::init(Callbacks *callbacks,map<string,util::PolygonMesh<VertexAttrib>>& meshes) 
@@ -135,9 +135,9 @@ void View::display(sgraph::IScenegraph *scenegraph) {
     
     modelview.push(glm::mat4(1.0));
     modelview.top() = modelview.top() * glm::lookAt(glm::vec3(200.0f,250.0f,250.0f),glm::vec3(0.0f,0.0f,0.0f),glm::vec3(0.0f,1.0f,0.0f));
-    if(isRotate) {
-        modelview.top() = modelview.top() * glm::rotate(glm::mat4(1.0f), glm::radians(rot_time), glm::vec3(0.0f, 1.0f, 0.0f));
-    }
+    modelview.top() = modelview.top() * glm::rotate(glm::mat4(1.0f), glm::radians(rotateAmount[0]), glm::vec3(0.0f, 1.0f, 0.0f)) 
+                                      * glm::rotate(glm::mat4(1.0f), glm::radians(rotateAmount[1]), glm::vec3(1.0f, 0.0f, 0.0f));
+    
     //
     //send projection matrix to GPU    
     glUniformMatrix4fv(shaderLocations.getLocation("projection"), 1, GL_FALSE, glm::value_ptr(projection));
@@ -174,6 +174,30 @@ void View::rotate() {
 
 void View::dontRotate() {
     isRotate = false;
+}
+
+void View::findMousePos(bool init)
+{
+    double xpos, ypos;
+    glfwGetCursorPos(window, &xpos, &ypos);
+
+    if (init) {
+        startpos[0] = (float)xpos;
+        startpos[1] = (float)ypos;
+        prevpos[0] = startpos[0];
+        prevpos[1] = startpos[1];
+    }
+    else {
+        float diffx = (float)xpos - prevpos[0];
+        float diffy = (float)ypos - prevpos[1];
+        //cout << diffx << ", " << diffy << endl;
+        rotateAmount[0] += (diffx);
+        rotateAmount[1] += (diffy);
+        prevpos[0] = (float)xpos;
+        prevpos[1] = (float)ypos;
+    }
+    //cout << rotateAmount[0] << ", " << rotateAmount[1] << endl;
+    //cout << xpos << ", " << ypos << endl;
 }
 
 bool View::shouldWindowClose() {

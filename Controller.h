@@ -26,6 +26,7 @@ private:
     char* filePath;
     bool filePathExists;
     bool released = true;
+    int count = 0;
 };
 
 #endif
