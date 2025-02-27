@@ -31,6 +31,7 @@ public:
     void rotate();
     void dontRotate();
     void findMousePos(bool init);
+    void resetTrackball();
 
 private: 
 

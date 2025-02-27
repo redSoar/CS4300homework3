@@ -190,14 +190,17 @@ void View::findMousePos(bool init)
     else {
         float diffx = (float)xpos - prevpos[0];
         float diffy = (float)ypos - prevpos[1];
-        //cout << diffx << ", " << diffy << endl;
         rotateAmount[0] += (diffx);
         rotateAmount[1] += (diffy);
         prevpos[0] = (float)xpos;
         prevpos[1] = (float)ypos;
     }
-    //cout << rotateAmount[0] << ", " << rotateAmount[1] << endl;
-    //cout << xpos << ", " << ypos << endl;
+}
+
+void View::resetTrackball()
+{
+    rotateAmount[0] = 0.0f;
+    rotateAmount[1] = 0.0f;
 }
 
 bool View::shouldWindowClose() {

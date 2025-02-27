@@ -87,7 +87,7 @@ void Controller::onkey(int key, int scancode, int action, int mods)
     cout << (char)key << " pressed" << endl;
     if (key == GLFW_KEY_R){ // 'r' or 'R'
         //reset trackball
-
+        view.resetTrackball();
     }
 }
 
