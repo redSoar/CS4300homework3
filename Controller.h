@@ -16,6 +16,7 @@ public:
     virtual void reshape(int width, int height);
     virtual void dispose();
     virtual void onkey(int key, int scancode, int action, int mods);
+    virtual void onMouse(int button, int action, int mods);
     virtual void error_callback(int error, const char* description);
 private:
     void initScenegraph();
@@ -24,6 +25,7 @@ private:
     Model model;
     char* filePath;
     bool filePathExists;
+    bool released = true;
 };
 
 #endif

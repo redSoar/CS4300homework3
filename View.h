@@ -28,6 +28,8 @@ public:
     void display(sgraph::IScenegraph *scenegraph);
     bool shouldWindowClose();
     void closeWindow();
+    void rotate();
+    void dontRotate();
 
 private: 
 
@@ -42,6 +44,8 @@ private:
     int frames;
     double time;
     int count;
+    bool isRotate = false;
+    
 };
 
 #endif

@@ -44,11 +44,25 @@ void View::init(Callbacks *callbacks,map<string,util::PolygonMesh<VertexAttrib>>
         reinterpret_cast<Callbacks*>(glfwGetWindowUserPointer(window))->onkey(key,scancode,action,mods);
     });
 
-    glfwSetWindowSizeCallback(window, 
-    [](GLFWwindow* window, int width,int height)
-    {
-        reinterpret_cast<Callbacks*>(glfwGetWindowUserPointer(window))->reshape(width,height);
-    });
+    glfwSetMouseButtonCallback(window,
+        [](GLFWwindow* window, int button, int action, int mods)
+        {
+            reinterpret_cast<Callbacks*>(glfwGetWindowUserPointer(window))->onMouse(button,action,mods);
+        }
+    );
+
+    // glfwSetCursorPosCallback(window,
+    //     [](GLFWwindow* window, double xpos, double ypos)
+    //     {
+    //         reinterpret_cast<Callbacks*>(glfwSetCursorPosCallback(window))->getMousePos(xpos,ypos);
+    //     }
+    // );
+
+    // glfwSetWindowSizeCallback(window, 
+    // [](GLFWwindow* window, int width,int height)
+    // {
+    //     reinterpret_cast<Callbacks*>(glfwGetWindowUserPointer(window))->reshape(width,height);
+    // });
 
     glfwMakeContextCurrent(window);
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
@@ -88,6 +102,7 @@ void View::init(Callbacks *callbacks,map<string,util::PolygonMesh<VertexAttrib>>
         objects[it->first] = obj;
     }
     
+
 	int window_width,window_height;
     glfwGetFramebufferSize(window,&window_width,&window_height);
 
@@ -120,7 +135,10 @@ void View::display(sgraph::IScenegraph *scenegraph) {
     
     modelview.push(glm::mat4(1.0));
     modelview.top() = modelview.top() * glm::lookAt(glm::vec3(200.0f,250.0f,250.0f),glm::vec3(0.0f,0.0f,0.0f),glm::vec3(0.0f,1.0f,0.0f));
-    modelview.top() = modelview.top() * glm::rotate(glm::mat4(1.0f), glm::radians(rot_time), glm::vec3(0.0f, 1.0f, 0.0f));
+    if(isRotate) {
+        modelview.top() = modelview.top() * glm::rotate(glm::mat4(1.0f), glm::radians(rot_time), glm::vec3(0.0f, 1.0f, 0.0f));
+    }
+    //
     //send projection matrix to GPU    
     glUniformMatrix4fv(shaderLocations.getLocation("projection"), 1, GL_FALSE, glm::value_ptr(projection));
     
@@ -148,6 +166,14 @@ void View::display(sgraph::IScenegraph *scenegraph) {
     }
     
 
+}
+
+void View::rotate() {
+    isRotate = true;
+}
+
+void View::dontRotate() {
+    isRotate = false;
 }
 
 bool View::shouldWindowClose() {

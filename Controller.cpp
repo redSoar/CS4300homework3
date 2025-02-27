@@ -7,7 +7,6 @@
 #include "ObjImporter.h"
 using namespace sgraph;
 #include <iostream>
-#include <cstring>
 using namespace std;
 
 #include "sgraph/ScenegraphExporter.h"
@@ -66,6 +65,12 @@ void Controller::run()
     view.init(this,meshes);
     while (!view.shouldWindowClose()) {
         view.display(scenegraph);
+        if(!released) {
+            view.rotate();
+        }
+        else {
+            view.dontRotate();
+        }
     }
     view.closeWindow();
     exit(EXIT_SUCCESS);
@@ -74,6 +79,22 @@ void Controller::run()
 void Controller::onkey(int key, int scancode, int action, int mods)
 {
     cout << (char)key << " pressed" << endl;
+    if (key == GLFW_KEY_R){ // 'r' or 'R'
+        //reset trackball
+
+    }
+}
+
+void Controller::onMouse(int button, int action, int mods)
+{
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+        cout << "left mouse being pressed" << endl;
+        released = false;
+    }
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
+        cout << "left mouse being released" << endl;
+        released = true;
+    }
 }
 
 void Controller::reshape(int width, int height) 
