@@ -28,8 +28,6 @@ public:
     void display(sgraph::IScenegraph *scenegraph);
     bool shouldWindowClose();
     void closeWindow();
-    void rotate();
-    void dontRotate();
     void findMousePos(bool init);
     void resetTrackball();
 
@@ -43,10 +41,7 @@ private:
     stack<glm::mat4> modelview;
     sgraph::SGNodeVisitor *renderer;
     sgraph::SGNodeVisitor *textRenderer;
-    int frames;
-    double time;
     int count;
-    bool isRotate = false;
     float prevpos[2];
     float rotateAmount[2] = {0.0f, 0.0f};
 };

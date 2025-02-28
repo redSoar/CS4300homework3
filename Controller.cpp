@@ -28,27 +28,21 @@ Controller::Controller(Model& m,View& v, char* fp) {
 }
 
 void Controller::initScenegraph() {
+    /*open up the file path (if given), otherwise display the castle (for testing purposes)
+      INPUT THE RELATIVE PATH OF THE DESIRED SCENEGRAPH*/ 
     if(filePathExists){
         ifstream inFile(filePath);
-        //ifstream inFile("tryout.txt");
         sgraph::ScenegraphImporter importer;
-        
     
         IScenegraph *scenegraph = importer.parse(inFile);
-        //scenegraph->setMeshes(meshes);
         model.setScenegraph(scenegraph);
-        cout <<"Scenegraph made" << endl;   
     }
     else {
         ifstream inFile("scenegraphmodels/castle.txt");
-        //ifstream inFile("tryout.txt");
         sgraph::ScenegraphImporter importer;
-        
     
         IScenegraph *scenegraph = importer.parse(inFile);
-        //scenegraph->setMeshes(meshes);
         model.setScenegraph(scenegraph);
-        cout <<"Scenegraph made" << endl;   
     }
 
 }
@@ -65,17 +59,17 @@ void Controller::run()
     view.init(this,meshes);
     while (!view.shouldWindowClose()) {
         view.display(scenegraph);
-        if(!released) {
+        // when the left mouse button is pressed, take the cursor position and set it to the initial position
+        if(pressed) {
             if (count == 0) {
                 view.findMousePos(true);
                 count++;
             }
-            //view.rotate();
+            // if the button continues to be held, take the current position and find the difference from the initial
             view.findMousePos(false);
         }
         else {
             count = 0;
-            // view.dontRotate();
         }
     }
     view.closeWindow();
@@ -84,7 +78,6 @@ void Controller::run()
 
 void Controller::onkey(int key, int scancode, int action, int mods)
 {
-    cout << (char)key << " pressed" << endl;
     if (key == GLFW_KEY_R){ // 'r' or 'R'
         //reset trackball
         view.resetTrackball();
@@ -93,13 +86,12 @@ void Controller::onkey(int key, int scancode, int action, int mods)
 
 void Controller::onMouse(int button, int action, int mods)
 {
+    // set the "pressed" boolean accordingly when the left mouse button is pressed
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-        cout << "left mouse being pressed" << endl;
-        released = false;
+        pressed = true;
     }
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
-        cout << "left mouse being released" << endl;
-        released = true;
+        pressed = false;
     }
 }
 

@@ -25,7 +25,7 @@ private:
     Model model;
     char* filePath;
     bool filePathExists;
-    bool released = true;
+    bool pressed = false;
     int count = 0;
 };
 

@@ -110,15 +110,10 @@ void View::init(Callbacks *callbacks,map<string,util::PolygonMesh<VertexAttrib>>
 	projection = glm::perspective(glm::radians(60.0f),(float)window_width/window_height,0.1f,10000.0f);
     glViewport(0, 0, window_width,window_height);
 
-    frames = 0;
-    time = glfwGetTime();
-
     renderer = new sgraph::GLScenegraphRenderer(modelview,objects,shaderLocations);
     textRenderer = new sgraph::GLScenegraphTextRenderer();
     count = 0;
 }
-
-
 
 
 void View::display(sgraph::IScenegraph *scenegraph) {
@@ -127,14 +122,10 @@ void View::display(sgraph::IScenegraph *scenegraph) {
     glClearColor(0,0,0,1);
     glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
-    //glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
-    //glEnable(GL_CULL_FACE);
-    //glCullFace(GL_FRONT_FACE);
 
-    float rot_time = glfwGetTime() * 30.0f;
-    
     modelview.push(glm::mat4(1.0));
-    modelview.top() = modelview.top() * glm::lookAt(glm::vec3(200.0f,250.0f,250.0f),glm::vec3(0.0f,0.0f,0.0f),glm::vec3(0.0f,1.0f,0.0f));
+    modelview.top() = modelview.top() * glm::lookAt(glm::vec3(0.0f,300.0f,300.0f),glm::vec3(0.0f,0.0f,0.0f),glm::vec3(0.0f,1.0f,0.0f));
+    // rotate by the amount that the cursor travels in the x and y coordinates
     modelview.top() = modelview.top() * glm::rotate(glm::mat4(1.0f), glm::radians(rotateAmount[0]), glm::vec3(0.0f, 1.0f, 0.0f)) 
                                       * glm::rotate(glm::mat4(1.0f), glm::radians(rotateAmount[1]), glm::vec3(1.0f, 0.0f, 0.0f));
     
@@ -145,11 +136,11 @@ void View::display(sgraph::IScenegraph *scenegraph) {
 
     //draw scene graph here
     scenegraph->getRoot()->accept(renderer);
+    // print the text renderer only once
     if(count < 1) {
         scenegraph->getRoot()->accept(textRenderer);
         count++;
     }
-    
     
     modelview.pop();
     glFlush();
@@ -157,30 +148,18 @@ void View::display(sgraph::IScenegraph *scenegraph) {
     
     glfwSwapBuffers(window);
     glfwPollEvents();
-    frames++;
-    double currenttime = glfwGetTime();
-    if ((currenttime-time)>1.0) {
-        printf("Framerate: %2.0f\r",frames/(currenttime-time));
-        frames = 0;
-        time = currenttime;
-    }
-    
 
 }
 
-void View::rotate() {
-    isRotate = true;
-}
-
-void View::dontRotate() {
-    isRotate = false;
-}
-
+// determine the amount by which the model will rotate based on cursor movement
 void View::findMousePos(bool init)
 {
+    // get the cursor position
     double xpos, ypos;
     glfwGetCursorPos(window, &xpos, &ypos);
 
+    /*set the initial position if instructed to do so, else calculate the distance travelled by the cursor
+      and set the amount by which the model will rotate to that distance (converted to radians within rotation matrix)*/
     if (init) {
         prevpos[0] = (float)xpos;
         prevpos[1] = (float)ypos;
@@ -190,11 +169,13 @@ void View::findMousePos(bool init)
         float diffy = (float)ypos - prevpos[1];
         rotateAmount[0] += (diffx);
         rotateAmount[1] += (diffy);
+        // prep for next position
         prevpos[0] = (float)xpos;
         prevpos[1] = (float)ypos;
     }
 }
 
+// reset the rotation
 void View::resetTrackball()
 {
     rotateAmount[0] = 0.0f;
@@ -204,8 +185,6 @@ void View::resetTrackball()
 bool View::shouldWindowClose() {
     return glfwWindowShouldClose(window);
 }
-
-
 
 void View::closeWindow() {
     for (map<string,util::ObjectInstance *>::iterator it=objects.begin();
